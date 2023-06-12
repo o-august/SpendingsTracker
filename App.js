@@ -3,8 +3,8 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CurrencyInput from 'react-native-currency-input';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import CurrencyInput from 'react-native-currency-input'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 
@@ -23,7 +23,15 @@ function HomeScreen() {
 function ChartsScreen() {
   return (
     <View style={styles.container}>
-      <Text>Settings!</Text>
+      <Text>Summary</Text>
+    </View>
+  );
+}
+
+function SetBudgetScreen() {
+  return (
+    <View style={styles.container}>
+      <Text>Set Budget</Text>
     </View>
   );
 }
@@ -36,7 +44,8 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Charts" component={ChartsScreen} />
+        <Tab.Screen name="Summary" component={ChartsScreen} />
+        <Tab.Screen name="Set Budget" component={SetBudgetScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -56,37 +65,34 @@ function MoneyInput() {
   </>;
 }
 function DateInput(){
-  const [date, setDate] = React.useState(new Date(1598051730000));
+    const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+  
+    const showDatePicker = () => {
+      setDatePickerVisibility(true);
+    };
+  
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+  
+    const handleConfirm = (date) => {
+      console.warn("A date has been picked: ", date);
+      hideDatePicker();
+    };
+  
+    return (
+      <>
+        <Button title="Show Date Picker" onPress={showDatePicker} />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
+      </>
+    );
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode) => {
-    DateTimePickerAndroid.open({
-      value: date,
-      onChange,
-      mode: currentMode,
-      is24Hour: true,
-    });
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
-
-  return (
-    <>
-      <Button onPress={showDatepicker} title="Show date picker!" />
-      <Button onPress={showTimepicker} title="Show time picker!" />
-      <Text>selected: {date.toLocaleString()}</Text>
-    </>
-  );
+  
 }
 
 const styles = StyleSheet.create({
