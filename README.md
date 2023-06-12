@@ -1,3 +1,3 @@
 # Refferences:
 - Tab navigation: https://reactnavigation.org/docs/tab-based-navigation/
-- Date picker: 
+- Date picker: https://github.com/mmazzarolo/react-native-modal-datetime-picker
