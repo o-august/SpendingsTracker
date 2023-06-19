@@ -7,10 +7,10 @@ import { Stack, IconButton } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 const MyIconWithLabel = (props2) => {
-  const {label,iconType} = props2
+  const {label,iconType,onSubmit} = props2
   return (
 <View style={styles.container}>
-    <IconButton icon={props => <Icon name={iconType} style={{ borderRadius:10,
+    <IconButton onPress={onSubmit} icon={props => <Icon name={iconType} style={{ borderRadius:10,
   borderWidth: 2,
   borderColor: 'rgb(0, 0, 0)',
   overflow: "hidden"
