@@ -1,13 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, FlatList} from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrencyInput from 'react-native-currency-input'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import MyIconWithLabel from './components/icon-with-label';
 
-
-
+const ICONS = [
+  {
+    label: 'entertain',
+    iconType: 'google-controller',
+  },
+  {
+    label: 'food',
+    iconType: 'food',
+  },
+  {
+    label: 'grocery',
+    iconType: 'basket',
+  },
+  {
+    label: 'retail',
+    iconType: 'tshirt-crew',
+  },
+];
 
 function HomeScreen() {
   return (
@@ -15,6 +32,15 @@ function HomeScreen() {
       <Text>Enter your spendings:</Text>
       <MoneyInput/>
       <DateInput/>
+      <FlatList
+        data={ICONS}
+        renderItem={({item}) =>  <MyIconWithLabel label={item.label} iconType={item.iconType}/> }
+        keyExtractor={item => item.label}
+        numColumns={4}
+      />
+
+
+
       <StatusBar style="auto" />
     </View>
   );
