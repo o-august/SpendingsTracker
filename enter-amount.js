@@ -1,16 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, FlatList } from 'react-native';
+import { Button, Text, View, FlatList, Alert, SafeAreaView } from 'react-native';
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrencyInput from 'react-native-currency-input'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import MyIconWithLabel from './components/icon-with-label';
 import  { styles } from "./components/styles"
+import * as database from "./components/database"
 
 const ICONS = [
     {
-        label: 'entertain',
+        label: 'fun',
         iconType: 'google-controller',
     },
     {
@@ -30,10 +29,11 @@ const ICONS = [
 export function HomeScreen() {
     const [moneyValue, setMoneyValue] = React.useState(0);
     const [dateValue, setDateValue] = React.useState(new Date());
-    function addSpending() {
+    function addSpending(category) {
         console.log("log attempt")
         if (moneyValue) {
-            console.log(moneyValue.toFixed(2)+" "+dateValue.toDateString()+" "+category)
+            alert(`$${moneyValue.toFixed(2)} spent on ${dateValue.toDateString()} on ${category} has been added`);
+            database.addSpending(moneyValue.toFixed(2), dateValue, category)
         }
     }
     return (
