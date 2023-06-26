@@ -11,6 +11,6 @@ export const addSpending = async (money, date, category) => {
 
 
 export function getMonthTotal(){
-    
+    return 99
 }
 
