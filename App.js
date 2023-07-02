@@ -29,7 +29,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Summary" component={ChartsScreen} />
+        <Tab.Screen name="Summary" component={ChartsScreen} options={{unmountOnBlur: true}} />
         <Tab.Screen name="Set Budget" component={SetBudgetScreen} />
       </Tab.Navigator>
     </NavigationContainer>
