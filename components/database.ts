@@ -3,8 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const addSpending = async (money, date, category) => {
   const newSpending = { "money": money, "date": date, "category": category }
   var allSpendings = await AsyncStorage.getItem('@spendings')
-  allSpendings = allSpendings != null ? JSON.parse(allSpendings) : []
-  allSpendings.push(newSpending)
+  const allSpendingsJson = allSpendings != null ? JSON.parse(allSpendings) : []
+  allSpendingsJson.push(newSpending)
   const jsonValue = JSON.stringify(allSpendings)
   await AsyncStorage.setItem('@spendings', jsonValue);
 };
