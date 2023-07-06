@@ -10,9 +10,9 @@ export const addSpending = async (money, date, category) => {
 };
 
 export const getMonthTotal = async () => {
-    const jsonValue = await AsyncStorage.getItem('@spendings');
-    console.log(jsonValue)
-    return processMonthlyTotalFromJSON(jsonValue)
+  const jsonValue = await AsyncStorage.getItem('@spendings');
+  console.log(jsonValue)
+  return processMonthlyTotalFromJSON(jsonValue)
 };
 
 function processMonthlyTotalFromJSON(json) {
@@ -29,9 +29,54 @@ function processMonthlyTotalFromJSON(json) {
     const itemMonth = date.getMonth();
     const itemYear = date.getFullYear();
 
-    if ( itemMonth === currentMonth && itemYear === currentYear) {
+    if (itemMonth === currentMonth && itemYear === currentYear) {
       totalSum += parseFloat(item.money);
     }
   });
   return totalSum.toFixed(2)
+}
+
+export const getDataToBarChartData = async () => {
+  const jsonValue = await AsyncStorage.getItem('@spendings');
+  return convertDataToBarChartData(jsonValue)
+};
+
+function convertDataToBarChartData(json) {
+  // Parse the input JSON into an array of objects
+  const inputData = JSON.parse(json);
+
+  // Create an array to store the sums for each month
+  const monthlySums = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  // Iterate over the input data and calculate the sums for each month
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  inputData.forEach(item => {
+    const date = new Date(item.date);
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    if (year === currentYear) {
+      const money = parseFloat(item.money);
+      monthlySums[month] += money;
+    }
+  });
+  // Define the labels for each month
+  const labels = [
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+  ];
+
+  // Create the output object
+  const outputData = {
+    labels: labels,
+    datasets: [
+      {
+        data: monthlySums
+      }
+    ]
+  };
+
+  // Convert the output object to JSON
+  const outputJSON = JSON.stringify(outputData);
+  console.log(outputJSON);
+  return outputData
 }

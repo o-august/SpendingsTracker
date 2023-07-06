@@ -1,6 +1,6 @@
 import { Text, View, Dimensions } from 'react-native';
 import { styles } from "./components/styles"
-import { getMonthTotalSync, getMonthTotal } from './components/database';
+import {  getMonthTotal, getDataToBarChartData } from './components/database';
 import * as React from 'react';
 import {
   LineChart,
@@ -14,23 +14,19 @@ import {
 export function ChartsScreen() {
 
   const [totalAmount, updateTotalAmount] = React.useState("5")
-
+  const [barChartData, updateBarChartData] = React.useState({labels:[],datasets:[{
+    data: []
+  }]})
   React.useEffect(() => {
     async function fetchData() {
-      const res = await getMonthTotal();
-      updateTotalAmount(res)
+      const monthTotal = await getMonthTotal();
+      updateTotalAmount(monthTotal)
+      const barChartData = await getDataToBarChartData();
+      updateBarChartData(barChartData)
     }
     fetchData();
   }, [])
 
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43]
-      }
-    ]
-  };
   const chartConfig = {
     backgroundGradientFrom: "#1E2923",
     backgroundGradientFromOpacity: 0,
@@ -50,7 +46,7 @@ export function ChartsScreen() {
           marginVertical: 8,
           borderRadius: 16
         }}
-        data={data}
+        data={barChartData}
         width={Dimensions.get("window").width}
         height={220}
         yAxisLabel="$"
