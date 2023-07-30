@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const addSpending = async (money, date, category) => {
+export const addSpending = async (money:number, date:Date, category:string) => {
   const newSpending = { "money": money, "date": date, "category": category }
-  var allSpendings = await AsyncStorage.getItem('@spendings')
-  const allSpendingsJson = allSpendings != null ? JSON.parse(allSpendings) : []
+  var allSpendings = await AsyncStorage.getItem('@spendings') || "[]";
+  var allSpendingsJson = []
+  allSpendingsJson = allSpendingsJson.concat(JSON.parse(allSpendings))
   allSpendingsJson.push(newSpending)
-  const jsonValue = JSON.stringify(allSpendings)
+  const jsonValue = JSON.stringify(allSpendingsJson)
   await AsyncStorage.setItem('@spendings', jsonValue);
 };
 
@@ -16,7 +17,7 @@ export const getMonthTotal = async () => {
 };
 
 function processMonthlyTotalFromJSON(json) {
-  const data = JSON.parse(json);
+  const data = JSON.parse(json) || [];
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -43,7 +44,7 @@ export const getDataToBarChartData = async () => {
 
 function convertDataToBarChartData(json) {
   // Parse the input JSON into an array of objects
-  const inputData = JSON.parse(json);
+  const inputData = JSON.parse(json) || [];
 
   // Create an array to store the sums for each month
   const monthlySums = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
