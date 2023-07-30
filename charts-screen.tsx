@@ -57,6 +57,7 @@ export function ChartsScreen() {
         yAxisLabel="$"
         chartConfig={chartConfig}
         verticalLabelRotation={30}
+        yAxisSuffix=''
       />
       <PieChart
         data={pieChartData}

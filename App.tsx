@@ -10,9 +10,6 @@ import { styles } from "./components/styles"
 import { HomeScreen } from './enter-amount';
 import { ChartsScreen } from './charts-screen';
 
-
-
-
 function SetBudgetScreen() {
   return (
     <View style={styles.container}>
@@ -20,7 +17,6 @@ function SetBudgetScreen() {
     </View>
   );
 }
-
 
 const Tab = createBottomTabNavigator();
 
