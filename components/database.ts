@@ -80,3 +80,37 @@ function convertDataToBarChartData(json) {
   console.log(outputJSON);
   return outputData
 }
+const data = [
+  {
+    name: "Grocery",
+    amount: 21500000,
+    color: "rgba(131, 167, 234, 1)",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "Retail",
+    amount: 2800000,
+    color: "#F00",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "fun",
+    amount: 527612,
+    color: "red",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "food",
+    amount: 450,
+    color: "yellow",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+];
+export const getDataToPieChartData = async () => {
+  const jsonValue = await AsyncStorage.getItem('@spendings');
+  return data
+};

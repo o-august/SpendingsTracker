@@ -1,6 +1,6 @@
 import { Text, View, Dimensions } from 'react-native';
 import { styles } from "./components/styles"
-import {  getMonthTotal, getDataToBarChartData } from './components/database';
+import { getMonthTotal, getDataToBarChartData, getDataToPieChartData } from './components/database';
 import * as React from 'react';
 import {
   LineChart,
@@ -14,15 +14,20 @@ import {
 export function ChartsScreen() {
 
   const [totalAmount, updateTotalAmount] = React.useState("5")
-  const [barChartData, updateBarChartData] = React.useState({labels:[],datasets:[{
-    data: []
-  }]})
+  const [barChartData, updateBarChartData] = React.useState({
+    labels: [], datasets: [{
+      data: []
+    }]
+  })
+  const [pieChartData, updatePieChartData] = React.useState([])
   React.useEffect(() => {
     async function fetchData() {
       const monthTotal = await getMonthTotal();
       updateTotalAmount(monthTotal)
       const barChartData = await getDataToBarChartData();
       updateBarChartData(barChartData)
+      const pieChartData = await getDataToPieChartData();
+      updatePieChartData(pieChartData)
     }
     fetchData();
   }, [])
@@ -52,6 +57,17 @@ export function ChartsScreen() {
         yAxisLabel="$"
         chartConfig={chartConfig}
         verticalLabelRotation={30}
+      />
+      <PieChart
+        data={pieChartData}
+        width={Dimensions.get("window").width}
+        height={220}
+        chartConfig={chartConfig}
+        accessor={"amount"}
+        backgroundColor={"transparent"}
+        paddingLeft={"15"}
+        center={[10, 50]}
+        absolute
       />
     </View>
   );
