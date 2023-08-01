@@ -20,6 +20,7 @@ export function ChartsScreen() {
     }]
   })
   const [pieChartData, updatePieChartData] = React.useState([])
+  
   React.useEffect(() => {
     async function fetchData() {
       const monthTotal = await getMonthTotal();
