@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const addSpending = async (money, date, category) => {
+export const addSpending = async (money: number, date: Date, category: string) => {
   const newSpending = { "money": money, "date": date, "category": category }
-  var allSpendings = await AsyncStorage.getItem('@spendings')
-  const allSpendingsJson = allSpendings != null ? JSON.parse(allSpendings) : []
+  var allSpendings = await AsyncStorage.getItem('@spendings') || "[]";
+  var allSpendingsJson = []
+  allSpendingsJson = allSpendingsJson.concat(JSON.parse(allSpendings))
   allSpendingsJson.push(newSpending)
-  const jsonValue = JSON.stringify(allSpendings)
+  const jsonValue = JSON.stringify(allSpendingsJson)
   await AsyncStorage.setItem('@spendings', jsonValue);
 };
 
@@ -16,7 +17,7 @@ export const getMonthTotal = async () => {
 };
 
 function processMonthlyTotalFromJSON(json) {
-  const data = JSON.parse(json);
+  const data = JSON.parse(json) || [];
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -43,7 +44,7 @@ export const getDataToBarChartData = async () => {
 
 function convertDataToBarChartData(json) {
   // Parse the input JSON into an array of objects
-  const inputData = JSON.parse(json);
+  const inputData = JSON.parse(json) || [];
 
   // Create an array to store the sums for each month
   const monthlySums = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -110,7 +111,37 @@ const data = [
     legendFontSize: 15
   },
 ];
+
+function convertDataToPieChartData(inputData: [any]) {
+  const categories = {};
+
+  // Calculate total amount for each category
+  inputData.forEach((item) => {
+    const { category, money, date } = item;
+    const dateObject = new Date(date);
+    const currentDate = new Date();
+    if (currentDate.getMonth() === dateObject.getMonth() && currentDate.getFullYear() === dateObject.getFullYear()) {
+      if (categories[category]) {
+        categories[category] += parseFloat(money);
+      } else {
+        categories[category] = parseFloat(money);
+      }
+    }
+  });
+
+  // Create the final array in the desired format
+  const dataArray = Object.keys(categories).map((category) => ({
+    name: category.charAt(0).toUpperCase() + category.slice(1),
+    amount: categories[category],
+    color: category === "fun" ? "red" : category === "food" ? "yellow" : category === "food" ? "yellow" : category === "grocery" ? "blue" : category === "retail" ? "green" : "rgba(131, 167, 234, 1)",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15,
+  }));
+
+  return dataArray;
+}
 export const getDataToPieChartData = async () => {
-  const jsonValue = await AsyncStorage.getItem('@spendings');
-  return data
+  const jsonValueAsString = await AsyncStorage.getItem('@spendings');
+  const data = JSON.parse(jsonValueAsString) || [];
+  return convertDataToPieChartData(data)
 };

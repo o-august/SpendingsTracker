@@ -11,7 +11,6 @@ import { HomeScreen } from './enter-amount';
 import { ChartsScreen } from './charts-screen';
 import { SetBudgetScreen } from './setbudget-screen';
 
-
 const Tab = createBottomTabNavigator();
 
 export default function App() {
