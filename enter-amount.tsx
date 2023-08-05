@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, Text, View, FlatList, Alert, SafeAreaView } from 'react-native';
+import { Button, Text, View, FlatList } from 'react-native';
 import * as React from 'react';
 import CurrencyInput from 'react-native-currency-input'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
