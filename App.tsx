@@ -9,17 +9,7 @@ import MyIconWithLabel from './components/icon-with-label';
 import { styles } from "./components/styles"
 import { HomeScreen } from './enter-amount';
 import { ChartsScreen } from './charts-screen';
-
-
-
-
-function SetBudgetScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Set Budget</Text>
-    </View>
-  );
-}
+import { SetBudgetScreen } from './setbudget-screen';
 
 
 const Tab = createBottomTabNavigator();
