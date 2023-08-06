@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Float } from 'react-native/Libraries/Types/CodegenTypes';
 
 export const addSpending = async (money: number, date: Date, category: string) => {
   const newSpending = { "money": money, "date": date, "category": category }
@@ -144,4 +145,14 @@ export const getDataToPieChartData = async () => {
   const jsonValueAsString = await AsyncStorage.getItem('@spendings');
   const data = JSON.parse(jsonValueAsString) || [];
   return convertDataToPieChartData(data)
+};
+
+
+export const getBudget = async () => {
+  const budgetAsString = await AsyncStorage.getItem('@budget');
+  return parseFloat(budgetAsString || "-1")
+};
+
+export const setBudget = async (amount:Float) => {
+  const budgetAsString = await AsyncStorage.setItem('@budget', ''+amount);
 };

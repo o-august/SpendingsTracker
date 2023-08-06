@@ -1,6 +1,6 @@
 import { Text, View, Dimensions } from 'react-native';
 import { styles } from "./components/styles"
-import { getMonthTotal, getDataToBarChartData, getDataToPieChartData } from './components/database';
+import { getMonthTotal, getDataToBarChartData, getDataToPieChartData, getBudget } from './components/database';
 import * as React from 'react';
 import {
   LineChart,
@@ -14,6 +14,8 @@ import {
 export function ChartsScreen() {
 
   const [totalAmount, updateTotalAmount] = React.useState("5")
+  const [remainingBudget, updateReaminingBudget] = React.useState(0)
+
   const [barChartData, updateBarChartData] = React.useState({
     labels: [], datasets: [{
       data: []
@@ -29,6 +31,9 @@ export function ChartsScreen() {
       updateBarChartData(barChartData)
       const pieChartData = await getDataToPieChartData();
       updatePieChartData(pieChartData)
+      const budget = await getBudget();
+      const remainingBudgetTemp = budget - parseFloat(totalAmount)
+      updateReaminingBudget(remainingBudgetTemp)
     }
     fetchData();
   }, [])
@@ -46,7 +51,11 @@ export function ChartsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>{totalAmount}</Text>
+      <Text>{"This months spendings:"}</Text>
+      <Text>{"$"+totalAmount}</Text>
+      <Text>{"remaining budget:"}</Text>
+      <Text>{"$"+ remainingBudget}</Text>
+
       <BarChart
         style={{
           marginVertical: 8,
