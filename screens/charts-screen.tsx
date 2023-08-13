@@ -1,6 +1,6 @@
 import { Text, View, Dimensions } from 'react-native';
-import { styles } from "./components/styles"
-import { getMonthTotal, getDataToBarChartData, getDataToPieChartData, getBudget } from './components/database';
+import { styles } from "../components/styles"
+import { getMonthTotal, getDataToBarChartData, getDataToPieChartData, getBudget } from '../components/database';
 import * as React from 'react';
 import {
   LineChart,
@@ -22,7 +22,7 @@ export function ChartsScreen() {
     }]
   })
   const [pieChartData, updatePieChartData] = React.useState([])
-  
+
   React.useEffect(() => {
     async function fetchData() {
       const monthTotal = await getMonthTotal();
@@ -39,11 +39,11 @@ export function ChartsScreen() {
   }, [])
 
   const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    backgroundGradientFrom: "#777777",
+    backgroundGradientFromOpacity: 1,
+    backgroundGradientTo: "#777777",
+    backgroundGradientToOpacity: 1,
+    color: (opacity = 1) => `rgba(137, 207, 240, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
@@ -51,11 +51,13 @@ export function ChartsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>{"This months spendings:"}</Text>
-      <Text>{"$"+totalAmount}</Text>
-      <Text>{"remaining budget:"}</Text>
-      <Text>{"$"+ remainingBudget}</Text>
+      <View style={styles.innerContainer}>
 
+        <Text style={styles.textBox}>{"This months spendings:"}</Text>
+        <Text style={styles.textBox}>{"$" + totalAmount}</Text>
+        <Text style={styles.textBox}>{"remaining budget:"}</Text>
+        <Text style={styles.textBox}>{"$" + remainingBudget}</Text>
+      </View>
       <BarChart
         style={{
           marginVertical: 8,
@@ -63,23 +65,27 @@ export function ChartsScreen() {
         }}
         data={barChartData}
         width={Dimensions.get("window").width}
-        height={220}
+        height={240}
         yAxisLabel="$"
         chartConfig={chartConfig}
         verticalLabelRotation={30}
-        yAxisSuffix = ''
+        yAxisSuffix=''
       />
-      <PieChart
-        data={pieChartData}
-        width={Dimensions.get("window").width}
-        height={220}
-        chartConfig={chartConfig}
-        accessor={"amount"}
-        backgroundColor={"transparent"}
-        paddingLeft={"15"}
-        center={[10, 50]}
-        absolute
-      />
+      <View style={styles.innerContainer}>
+
+        <PieChart
+          data={pieChartData}
+          width={Dimensions.get("window").width}
+          height={220}
+          chartConfig={chartConfig}
+          accessor={"amount"}
+          backgroundColor={"transparent"}
+          paddingLeft={"15"}
+          absolute={false}
+          hasLegend={true}
+        />
+        <Text style={styles.textBox}>This months category split</Text>
+      </View>
     </View>
   );
 }

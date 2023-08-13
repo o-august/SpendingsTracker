@@ -1,8 +1,0 @@
-    <View style={{ alignItems: 'center' }}>
-      <IconButton icon={props => <Icon name={iconType} style={{ borderRadius:10,
-        borderWidth: 2,
-        borderColor: 'rgb(0, 0, 0)',
-        overflow: "hidden"
-}   } {...props} />} />
-      <Text style={{ marginTop: 5 }}>{label}</Text>
-    </View>

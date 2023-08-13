@@ -64,7 +64,7 @@ function convertDataToBarChartData(json) {
   });
   // Define the labels for each month
   const labels = [
-    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
 
   // Create the output object
@@ -86,28 +86,29 @@ const data = [
   {
     name: "Grocery",
     amount: 21500000,
-    color: "rgba(131, 167, 234, 1)",
+    color: "rgba(255, 219, 88, 1)",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
+
   },
   {
     name: "Retail",
     amount: 2800000,
-    color: "#F00",
+    color: "rgba(137, 207, 240, 1)",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
     name: "fun",
     amount: 527612,
-    color: "red",
+    color: "rgba(217, 105, 65, 1)",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
     name: "food",
     amount: 450,
-    color: "yellow",
+    color: "rgba(67, 143, 104, 1)",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
@@ -134,9 +135,9 @@ function convertDataToPieChartData(inputData: [any]) {
   const dataArray = Object.keys(categories).map((category) => ({
     name: category.charAt(0).toUpperCase() + category.slice(1),
     amount: categories[category],
-    color: category === "fun" ? "red" : category === "food" ? "yellow" : category === "food" ? "yellow" : category === "grocery" ? "blue" : category === "retail" ? "green" : "rgba(131, 167, 234, 1)",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15,
+    color: category === "fun" ? "rgba(255, 219, 88, 1)" : category === "food" ? "rgba(137, 207, 240, 1)" : category === "grocery" ? "rgba(67, 143, 104, 1)" : category === "retail" ? "rgba(217, 105, 65, 1)" : "rgba(131, 167, 234, 1)",
+    legendFontColor: "rgba(137, 207, 240, 1)",
+    legendFontSize: 17,
   }));
 
   return dataArray;

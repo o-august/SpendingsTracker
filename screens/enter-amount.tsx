@@ -3,9 +3,9 @@ import { Button, Text, View, FlatList } from 'react-native';
 import * as React from 'react';
 import CurrencyInput from 'react-native-currency-input'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import MyIconWithLabel from './components/icon-with-label';
-import  { styles } from "./components/styles"
-import * as database from "./components/database"
+import MyIconWithLabel from '../components/icon-with-label';
+import  { styles } from "../components/styles"
+import * as database from "../components/database"
 
 const ICONS = [
     {
@@ -33,12 +33,14 @@ export function HomeScreen() {
         console.log("log attempt")
         if (moneyValue) {
             alert(`$${moneyValue.toFixed(2)} spent on ${dateValue.toDateString()} on ${category} has been added`);
-            database.addSpending(moneyValue.toFixed(2), dateValue, category)
+            database.addSpending(moneyValue, dateValue, category)
         }
     }
     return (
-        <View style={styles.container}>
-            <Text>Enter your spendings:</Text>
+        <View style={[styles.container]}>
+            <View style={styles.innerContainer}>
+
+            <Text style={styles.textBox}>Enter your spendings:</Text>
             <MoneyInput value={moneyValue} setValue={setMoneyValue}/>
             <DateInput dateValue={dateValue} setDateValue={setDateValue}/>
             <FlatList
@@ -46,9 +48,11 @@ export function HomeScreen() {
                 renderItem={({ item }) => <MyIconWithLabel label={item.label} iconType={item.iconType} onSubmit={addSpending}/>}
                 keyExtractor={item => item.label}
                 numColumns={4}
+                
             />
             <StatusBar style="auto" />
         </View>
+    </View>
     );
 }
 
@@ -79,8 +83,8 @@ function DateInput({dateValue,setDateValue}) {
 
     return (
         <>
-            <Button title={dateValue.toDateString()} onPress={showDatePicker} />
-            <DateTimePickerModal
+            <Button title={dateValue.toDateString()} onPress={showDatePicker} color={"rgba(137, 207, 240, 1)"} />
+            <DateTimePickerModal 
                 date={dateValue}
                 isVisible={isDatePickerVisible}
                 mode="date"

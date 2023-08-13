@@ -13,12 +13,14 @@ const MyIconWithLabel = (props2) => {
   }
   return (
 <View style={styles.container}>
-    <IconButton onPress={onSubmitWrapper} icon={props => <Icon name={iconType} style={{ borderRadius:10,
+    <IconButton onPress={onSubmitWrapper} icon={props => <Icon name={iconType} style={{ borderRadius:10, 
   borderWidth: 2,
-  borderColor: 'rgb(0, 0, 0)',
+  borderColor: "#333333",
+  color: "#333333",
+  backgroundColor: "#bbbbbb",
   overflow: "hidden"
 }} {...props} />} />
-<Text style={{ marginTop: 5 }}>{label}</Text>
+<Text style={{ marginTop: 0, color: "#333333" }}>{label}</Text>
   </View>
 
   );
