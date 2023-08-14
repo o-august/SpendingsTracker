@@ -11,6 +11,7 @@ const ICONS = [
     {
         label: 'fun',
         iconType: 'google-controller',
+
     },
     {
         label: 'food',
