@@ -13,7 +13,8 @@ const MyIconWithLabel = (props2) => {
   }
   return (
 <View style={styles.container}>
-    <IconButton onPress={onSubmitWrapper} icon={props => <Icon name={iconType} style={{ borderRadius:10, 
+    <IconButton onPress={onSubmitWrapper} icon={props => <Icon name={iconType} size={40} style={{ borderRadius:10, 
+
   borderWidth: 2,
   borderColor: "#333333",
   color: "#333333",
