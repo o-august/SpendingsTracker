@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 //import { IconButton } from "@react-native-material/core";
 import { Stack, IconButton } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import { styles } from "../components/styles"
 
 const MyIconWithLabel = (props2) => {
   const {label,iconType,onSubmit} = props2
@@ -12,27 +13,18 @@ const MyIconWithLabel = (props2) => {
     onSubmit(label)
   }
   return (
-<View style={styles.container}>
-    <IconButton onPress={onSubmitWrapper} icon={props => <Icon name={iconType} size={40} style={{ borderRadius:10, 
-
-  borderWidth: 2,
-  borderColor: "#333333",
-  color: "#333333",
-  backgroundColor: "#bbbbbb",
-  overflow: "hidden"
-}} {...props} />} />
-<Text style={{ marginTop: 0, color: "#333333" }}>{label}</Text>
+<View style={styles.iconsContainer}>
+    <IconButton onPress={onSubmitWrapper} 
+    style={styles.iconButton}
+    aria-label='dasdasd'
+    icon={props => {
+      props.size=40
+      props.color="#333333" 
+      return <Icon name={iconType}  {...props}/>}} 
+    />
+    <Text style={styles.iconTextStyle}>{label}</Text>
   </View>
 
   );
 };
-const styles = StyleSheet.create({
-    container: {
-      alignItems: 'center',
-    },
-    label: {
-      marginTop: 8,
-      fontSize: 12,
-    },
-  });
 export default MyIconWithLabel;

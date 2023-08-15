@@ -3,18 +3,15 @@ import { styles } from "../components/styles"
 import { getMonthTotal, getDataToBarChartData, getDataToPieChartData, getBudget } from '../components/database';
 import * as React from 'react';
 import {
-  LineChart,
   BarChart,
   PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
 } from "react-native-chart-kit";
 
 export function ChartsScreen() {
 
-  const [totalAmount, updateTotalAmount] = React.useState("5")
+  const [totalAmount, updateTotalAmount] = React.useState("0")
   const [remainingBudget, updateReaminingBudget] = React.useState(0)
+  const [budget, updateBudget] = React.useState(0)
 
   const [barChartData, updateBarChartData] = React.useState({
     labels: [], datasets: [{
@@ -32,7 +29,8 @@ export function ChartsScreen() {
       const pieChartData = await getDataToPieChartData();
       updatePieChartData(pieChartData)
       const budget = await getBudget();
-      const remainingBudgetTemp = budget - parseFloat(totalAmount)
+      updateBudget(budget);
+      const remainingBudgetTemp = budget - parseFloat(monthTotal)
       updateReaminingBudget(remainingBudgetTemp)
     }
     fetchData();
@@ -55,8 +53,7 @@ export function ChartsScreen() {
 
         <Text style={styles.textBox}>{"This months spendings:"}</Text>
         <Text style={styles.textBox}>{"$" + totalAmount}</Text>
-        <Text style={styles.textBox}>{"remaining budget:"}</Text>
-        <Text style={styles.textBox}>{"$" + remainingBudget}</Text>
+        <Text style={styles.textBox}>{"$" + remainingBudget+" left from budget set to $"+budget}</Text>
       </View>
       <BarChart
         style={{
