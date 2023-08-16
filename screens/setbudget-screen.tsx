@@ -12,7 +12,7 @@ export const SetBudgetScreen = (props) => {
 
   function setBudgetEvent() {
     database.setBudget(moneyValue)
-    alert(`$${moneyValue.toFixed(2)} has been set as your monthly limit`);
+    //alert(`$${moneyValue.toFixed(2)} has been set as your monthly limit`);
     Alert.alert('Confirm',`$${moneyValue.toFixed(2)} has been set as your monthly limit`,[
       {
         text: 'OK',
