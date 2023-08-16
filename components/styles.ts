@@ -19,9 +19,10 @@ export const styles = StyleSheet.create({
     paddingLeft: 45,
     paddingRight: 45,
     margin: 10,
-    backgroundColor: "#aaaaaa",
-    fontSize: 27,
-    fontWeight: 'bold'
+    backgroundColor: "#dddded",
+    fontSize: 29,
+    fontWeight: 'bold',
+    borderRadius: 10,
   },
   innerContainer: {
     backgroundColor: "#777777",
@@ -34,8 +35,9 @@ export const styles = StyleSheet.create({
   },
   textBox: {
     color: "rgba(137, 207, 240, 1)",
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold'
+  
 
   },
   navbar: {
@@ -51,11 +53,11 @@ export const styles = StyleSheet.create({
     height: 70,
     borderRadius: 10,
     borderWidth: 2,
-    backgroundColor: "#bbbbbb",
+    backgroundColor: "#dddded",
   },
   iconTextStyle: {
     marginTop: 0,
-    color: "#333333",
+    color: "#dddded",
     alignContent: "center"
   }
 });

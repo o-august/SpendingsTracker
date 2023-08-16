@@ -2,25 +2,32 @@
 import { styles } from "../components/styles";
 import CurrencyInput from "react-native-currency-input";
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Alert } from "react-native";
 import * as database from "../components/database"
 
 
-export function SetBudgetScreen() {
+export const SetBudgetScreen = (props) => {
 
   const [moneyValue, setMoneyValue] = React.useState(0);
 
   function setBudgetEvent() {
     database.setBudget(moneyValue)
     alert(`$${moneyValue.toFixed(2)} has been set as your monthly limit`);
+    Alert.alert('Confirm',`$${moneyValue.toFixed(2)} has been set as your monthly limit`,[
+      {
+        text: 'OK',
+        onPress: () => props.navigation.navigate('Summary'),
+        style: 'cancel'
+      }
+    ]);
 
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text>Set Budget</Text>
-        <MoneyInput value={moneyValue} setValue={setMoneyValue} />
+        <Text style={styles.textBox}>Set Budget</Text>
+        <MoneyInput value={moneyValue} setValue={setMoneyValue} onSubmit={setBudgetEvent}/>
         <Button title="Confirm" onPress={setBudgetEvent}></Button>
       </View>
     </View>
@@ -29,9 +36,14 @@ export function SetBudgetScreen() {
 
 
 
-function MoneyInput({ value, setValue }) {
+function MoneyInput({ value, setValue, onSubmit }) {
   return <>
-    <CurrencyInput prefix="$" separator="." delimiter="," value={value} onChangeValue={setValue} style={styles.currencyStyle} />
+  <CurrencyInput prefix="$" separator="." delimiter="," 
+    value={value} 
+    onChangeValue={setValue} 
+    style={styles.currencyStyle} 
+    onSubmitEditing= {onSubmit}
+    />
   </>;
 }
 

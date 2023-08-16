@@ -10,6 +10,7 @@ import { styles } from "./components/styles"
 import { HomeScreen } from './screens/enter-amount';
 import { ChartsScreen } from './screens/charts-screen';
 import { SetBudgetScreen } from './screens/setbudget-screen';
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,9 +26,25 @@ export default function App() {
             color: "rgba(137, 207, 240, 1)",
           },
         }}>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Summary" component={ChartsScreen} options={{ unmountOnBlur: true }} />
-        <Tab.Screen name="Set Budget" component={SetBudgetScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" color={color} size={size} />
+          ),}}
+       />
+        <Tab.Screen name="Summary" component={ChartsScreen} options={{
+          tabBarLabel: 'Summary',
+          unmountOnBlur: true,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="chart-bar" color={color} size={size} />
+          ),}}
+        />
+        <Tab.Screen name="Set Budget" component={SetBudgetScreen} options={{
+          tabBarLabel: 'Budget',
+          unmountOnBlur: true,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="cash-lock" color={color} size={size} />
+          ),}}/>
       </Tab.Navigator>
     </NavigationContainer>
 
