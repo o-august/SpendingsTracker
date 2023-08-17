@@ -53,7 +53,7 @@ export function ChartsScreen() {
 
         <Text style={styles.textBox}>{"This months spendings:"}</Text>
         <Text style={styles.textBox}>{"$" + totalAmount}</Text>
-        <Text style={styles.textBox}>{"$" + remainingBudget+" left from budget set to $"+budget}</Text>
+        <Text style={styles.textBox}>{"$" + remainingBudget.toFixed(2)+" left from budget set to $"+budget}</Text>
       </View>
       <BarChart
         style={{
